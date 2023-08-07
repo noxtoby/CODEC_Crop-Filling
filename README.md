@@ -6,6 +6,8 @@ different commands of the docker image used for the implementation in that paper
 inputed in the singularity command will be the actual ones that the pipeline will use, however 
 in other cases the acq-label will be used as a reference to locate the necessary file.
 
+For building the containers, see [README-docker.md](./README-docker.md)
+
 ## STEP 1. CROP/ZEROPAD
 This step involves the reduction of the FOV of full brain scans. (The equivalent in partial brain
 coverage scans would be to zeropad the image in the appropriate directions, and reset the affine
