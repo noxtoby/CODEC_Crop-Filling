@@ -3,15 +3,16 @@
 Requirements:
 
 - Miniconda installer: [Miniconda3-py38_4.12.0-Linux-x86_64.sh](https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh)
+- FreeSurfer 7 development version: `freesurfer-linux-ubuntu18_x86_64-7-dev.tar.gz`
 
-1. Change into repo directory
+1. Change into repo directory (after cloning, obviously)
 ```
 cd /path/to/CODEC_Crop-Filling
 ```
 
 2. Change into FreeSurfer container directory and download Dockerfile requirements:
-   - MiniConda installer (takes seconds) 
-   - FreeSurfer v7-dev, ubuntu 18 (takes minutes to hours, depending on your connection):
+   - MiniConda installer (takes seconds)
+   - FreeSurfer v7-dev, ubuntu 18 (takes minutes to hours, depending on your connection)
 ```
 cd FS_dev
 wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh

@@ -1,6 +1,6 @@
 Crop-fill is a pipeline developed by Gonzalo Castro that makes use of different builtin tools
 of FreeSurfer 7 developer version (SynthSR and SynthSR Hyperfine) to try to solve the partial
-brain coverage issue encountered in T1w brain MRI scans in the [CODEC](https://ucl-codec/github.io) dataset in 2021. For more information on
+brain coverage issue encountered in T1w brain MRI scans in the [CODEC](https://ucl-codec.github.io) dataset in 2021. For more information on
 this pipeline please read the paper published on it (preprint [here](https://doi.org/10.1101/2023.03.06.23286839)). The purpose of this file is to explain the
 different commands of the docker image used for the implementation in that paper, which included artificially cropping T1w MRI from [ADNI](https://adni.loni.usc.edu). Sometimes the acq-labels 
 inputed in the singularity command will be the actual ones that the pipeline will use, however 
