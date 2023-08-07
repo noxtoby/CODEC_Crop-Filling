@@ -94,12 +94,12 @@ RUN apt-get update -qq \
 
 ENV CONDA_DIR="/opt/miniconda-latest" \
     PATH="/opt/miniconda-latest/bin:$PATH"
-COPY Miniconda3-py38_4.12.0-Linux-x86_64.sh /tmp/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+COPY Miniconda3-py38_4.12.0-Linux-x86_64.sh /tmp/miniconda.sh
 RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
     && echo "Downloading Miniconda installer ..." \
     && conda_installer="/tmp/miniconda.sh" \
-    && bash /tmp/Miniconda3-py38_4.12.0-Linux-x86_64.sh -b -p /opt/miniconda-latest \
-    && rm -f /tmp/Miniconda3-py38_4.12.0-Linux-x86_64.sh \
+    && bash /tmp/miniconda.sh -b -p /opt/miniconda-latest \
+    && rm -f /tmp/miniconda.sh \
     && conda update -yq -nbase conda \
     && conda config --system --prepend channels conda-forge \
     && conda config --system --set auto_update_conda false \
@@ -109,7 +109,7 @@ RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
            "python=3.8" \
            "setuptools" \
            "pandas" \
-           "nibabel"
+           "nibabel" \
     && sync && conda clean -y --all && sync \
     && bash -c "source activate base"\
     && sync
