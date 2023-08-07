@@ -25,10 +25,3 @@ docker build --progress=plain --tag ${DOCKERTAG} -f Dockerfile .
 ```
 
 
-```
-cd /path/to/CODEC_Crop-Filling
-cd FS_dev
-wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
-DOCKERTAG=noxtoby/cropfilling:fs7dev
-docker build --progress=plain --tag ${DOCKERTAG} -f Dockerfile .
-```

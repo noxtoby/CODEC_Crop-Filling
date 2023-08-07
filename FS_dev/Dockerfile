@@ -96,7 +96,7 @@ ENV CONDA_DIR="/opt/miniconda-latest" \
     PATH="/opt/miniconda-latest/bin:$PATH"
 COPY Miniconda3-py38_4.12.0-Linux-x86_64.sh /tmp/miniconda.sh
 RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
-    && echo "Downloading Miniconda installer ..." \
+    && echo "Running pre-downloaded Miniconda installer (wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh) ..." \
     && conda_installer="/tmp/miniconda.sh" \
     && bash /tmp/miniconda.sh -b -p /opt/miniconda-latest \
     && rm -f /tmp/miniconda.sh \
