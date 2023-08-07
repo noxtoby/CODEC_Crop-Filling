@@ -74,7 +74,7 @@ RUN apt-get update -qq \
            tcsh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && echo "Downloading FreeSurfer ..." \
+    && echo "Extracting pre-downloaded FreeSurfer (wget https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/dev/freesurfer-linux-ubuntu18_x86_64-7-dev.tar.gz) ..." \
     && mkdir -p /opt/freesurfer \
     && tar -xzf /tmp/freesurfer-linux-ubuntu18_x86_64-7-dev.tar.gz -C /opt/freesurfer --strip-components 1 \
          --exclude='freesurfer/average/mult-comp-cor' \
