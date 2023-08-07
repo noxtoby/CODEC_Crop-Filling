@@ -25,16 +25,19 @@ DOCKERTAG=noxtoby/cropfilling:fs7dev
 docker build --progress=plain --tag ${DOCKERTAG} -f Dockerfile .
 ```
 
-4. Save IMAGE ID to FreeSurfer image
-```
-docker images ${DOCKERTAG}
-# Manually copy the IMAGE ID and assign an environment variable
-IMAGEID=af2a88f3f32d
-```
-
-5. Build Crop-filling container
+4. Build Crop-filling container
 ```
 cd ../crop_fill
 DOCKERTAGCF=noxtoby/cropfilling:crop_fill
 docker build --progress=plain --tag ${DOCKERTAGCF} -f Dockerfile .
 ```
+
+5. Save IMAGE ID for both docker images
+```
+docker images
+# Manually copy the IMAGE ID and assign an environment variable
+IMAGEIDFS=af2a88f3f32d
+IMAGEIDCF=11b1247d314b
+```
+
+Now you can follow the Crop-Filling [README](./README.md).
