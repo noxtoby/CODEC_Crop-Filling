@@ -27,13 +27,13 @@ folder/with/BIDS/format developer --participant_label <sub-label> --license_file
 --dev_tools mri_convert_tri --mri_convert_modality T2 --mri_convert_options <sizex> <sizey> <sizez>
 --refine_pial_acquisition_label <acq-label> --skip_bids_validator
 ``` 
-[In]: acq-label of the actual T2w file to downsample   
+[In]: acq-label of the actual T2w file to downsample
 [Out]: `acq-ds_T2w`
 
 ## STEP 3. REGISTRATION T2 to T1
 SynthSR Hyperfine requires that the T2 and T1 scans are registered to the same space. So the T2 needs
 to be moved to the T1 space.
-``` 
+```
 singularity run --bind /directory/to/bind singularity-image_freesurfer-dev.sif folder/with/BIDS/format
 folder/with/BIDS/format developer --participant_label <sub-label> --license_file /path/to/license.txt
 --dev_tools mri_robust_registration --mri_convert_modality T2 --acquisition_label <acq-label>
