@@ -150,25 +150,55 @@ else:
 
 subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
 
-# Got to combine acq_tpl and rec_tpl
-if args.acquisition_label and not args.reconstruction_label:
-    ar_tpl = "*acq-%s*" % args.acquisition_label
-elif args.reconstruction_label and not args.acquisition_label:
-    ar_tpl = "*rec-%s*" % args.reconstruction_label
-elif args.reconstruction_label and args.acquisition_label:
-    ar_tpl = "*acq-%s*_rec-%s*" % (args.acquisition_label, args.reconstruction_label)
-else:
-    ar_tpl = "*"
+# # Got to combine acq_tpl and rec_tpl
+# if args.acquisition_label and not args.reconstruction_label:
+#     ar_tpl = "*acq-%s*" % args.acquisition_label
+# elif args.reconstruction_label and not args.acquisition_label:
+#     ar_tpl = "*rec-%s*" % args.reconstruction_label
+# elif args.reconstruction_label and args.acquisition_label:
+#     ar_tpl = "*acq-%s*_rec-%s*" % (args.acquisition_label, args.reconstruction_label)
+# else:
+#     ar_tpl = f"*ses-{args.session_label}"
+#
+# # Got to combine acq_tpl and rec_tpl
+# if args.refine_pial_acquisition_label and not args.refine_pial_reconstruction_label:
+#     ar_t2 = "*acq-%s*" % args.refine_pial_acquisition_label
+# elif args.refine_pial_reconstruction_label and not args.refine_pial_acquisition_label:
+#     ar_t2 = "*rec-%s*" % args.refine_pial_reconstruction_label
+# elif args.refine_pial_reconstruction_label and args.refine_pial_acquisition_label:
+#     ar_t2 = "*acq-%s*_rec-%s*" % (args.refine_pial_acquisition_label, args.refine_pial_reconstruction_label)
+# else:
+#     ar_t2 = "*"
 
-# Got to combine acq_tpl and rec_tpl
-if args.refine_pial_acquisition_label and not args.refine_pial_reconstruction_label:
-    ar_t2 = "*acq-%s*" % args.refine_pial_acquisition_label
-elif args.refine_pial_reconstruction_label and not args.refine_pial_acquisition_label:
-    ar_t2 = "*rec-%s*" % args.refine_pial_reconstruction_label
-elif args.refine_pial_reconstruction_label and args.refine_pial_acquisition_label:
-    ar_t2 = "*acq-%s*_rec-%s*" % (args.refine_pial_acquisition_label, args.refine_pial_reconstruction_label)
+if args.acquisition_label:
+    if not args.reconstruction_label:
+        ar_tpl = "*acq-%s*" % args.acquisition_label
+    else:
+        ar_tpl = "*acq-%s*_rec-%s*" % (args.acquisition_label, args.reconstruction_label)
 else:
-    ar_t2 = "*"
+    if args.reconstruction_label:
+        ar_tpl = "*rec-%s*" % args.reconstruction_label
+    else:
+        ar_tpl = f"*ses-{args.session_label}"
+# Overwrite if acq-label is intentionally blank
+if args.acquisition_label=="":
+    ar_tpl = ar_tpl.replace('acq-','')
+
+if args.refine_pial_acquisition_label:
+    if not args.refine_pial_reconstruction_label:
+        ar_t2 = "*acq-%s*" % args.refine_pial_acquisition_label
+    else:
+        ar_t2 = "*acq-%s*_rec-%s*" % (args.refine_pial_acquisition_label, args.refine_pial_reconstruction_label)
+else:
+    if args.refine_pial_reconstruction_label:
+        ar_t2 = "*rec-%s*" % args.refine_pial_reconstruction_label
+    else:
+        ar_t2 = f"*ses-{args.session_label}"
+# Overwrite if pial-acq-label is intentionally blank
+if args.refine_pial_acquisition_label=="":
+    ar_t2 = ar_t2.replace('acq-','')
+
+
 
 # if there are session folders, check if study is truly longitudinal by
 # searching for the first subject with more than one valid sessions
@@ -657,11 +687,11 @@ elif args.analysis_level == "developer":  # running developer options
                     input_args_t1 += "%s" % T1
                     str_split = "%s_T1w." % ar_tpl.replace('*', '')
                     out = input_args_t1.split(str_split)
-                    output_args_t1_sr = "{out1}acq-SRT1_T1w.{out2}".format(out1=out[0], out2=out[1])
-                    output_args_t1_ds = "{out1}acq-ds_T1w.{out2}".format(out1=out[0], out2=out[1])
-                    output_args_t1t2 = "{out1}acq-SRT1T2_T1w.{out2}".format(out1=out[0], out2=out[1])
-                    output_args_t1_sr_reg = "{out1}acq-SRT2reg_T1w.{out2}".format(out1=out[0], out2=out[1])
-                    output_args_t1_srh = "{out1}acq-SRH_T1w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t1_sr = "{out1}_acq-SRT1_T1w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t1_ds = "{out1}_acq-ds_T1w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t1t2 = "{out1}_acq-SRT1T2_T1w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t1_sr_reg = "{out1}_acq-SRT2reg_T1w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t1_srh = "{out1}_acq-SRH_T1w.{out2}".format(out1=out[0], out2=out[1])
                     output_args_t1_sseg = "{out_folder}/{sub}-SSEG_T1w.{out2}".format(out_folder=output_dir,
                                                                                       sub=subject_label, out2=out[1])
                     output_args_prob_sseg = "{out_folder}/{sub}-SSEGprob_T1w.{out2}".format(out_folder=output_dir,
@@ -680,9 +710,9 @@ elif args.analysis_level == "developer":  # running developer options
                     input_args_t2 += "%s" % T2
                     str_split = "%s_T2w." % ar_t2.replace('*', '')
                     out = input_args_t2.split(str_split)
-                    output_args_t2_sr = "{out1}acq-SRT2_T1w.{out2}".format(out1=out[0], out2=out[1])
-                    output_args_t2_ds = "{out1}acq-ds_T2w.{out2}".format(out1=out[0], out2=out[1])
-                    output_args_t2_reg = "{out1}acq-reg_T2w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t2_sr = "{out1}_acq-SRT2_T1w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t2_ds = "{out1}_acq-ds_T2w.{out2}".format(out1=out[0], out2=out[1])
+                    output_args_t2_reg = "{out1}_acq-reg_T2w.{out2}".format(out1=out[0], out2=out[1])
                     output_args_t2_sseg = "{out_folder}/{sub}-SSEG_T2w.{out2}".format(out_folder=output_dir,
                                                                                       sub=subject_label, out2=out[1])
                     output_args_prob_sseg = "{out_folder}/{sub}-SSEGprob_T2w.{out2}".format(out_folder=output_dir,
